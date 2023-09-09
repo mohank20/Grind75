@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int checkForBalanced(TreeNode *root, bool &ans) {
+        if (ans == false) return -1;
+        if (!root) return 0;
+        int lheight = checkForBalanced(root->left, ans);
+        int rheight = checkForBalanced(root->right, ans);
+        if (abs(lheight-rheight) > 1) ans = false;
+        return 1 + max (lheight, rheight);
+    }
+
+    bool isBalanced(TreeNode* root) {
+        bool ans = true;
+        int h = checkForBalanced(root, ans);
+        return ans;
+    }
+};
+/*Intuition
+Given the definition of a balanced tree, we know that a tree is not balanced when the difference between heights of the left and right subtree is over 1:
+abs(height_left - height_right) > 1 (abs: absolute value)
+The basic approach is:
+
+Traverse the tree
+Calculate the height of the left and right subtree
+If it's not balanced (by using the formular above), then return false.
+Return true when all nodes are passed
+But for the best performance, we want to return false right after we have found the unbalanced subtree. So we add another step before calculating the height of subtrees: if the left or right subtree is unbalanced, then return false.
+
+We don't want to repeat the traversal of the subtree to check balance and then calculate height. So we just do all once for each node.
+
+The height at a node is obtained by it's children height + 1: max(height(i.left), height(i.right)) + 1. O(n) TC+SC*/
