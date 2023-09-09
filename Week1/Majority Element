@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int majorityElement(vector<int>& A) {
+        int candidate=A[0],count=1;
+        for(int i=1;i<A.size();i++){
+            if(A[i]==candidate) count++;
+            else count--;
+            if(count==0){
+                count=1;
+                candidate=A[++i];
+            }
+        }
+        return candidate;        
+    }
+};
