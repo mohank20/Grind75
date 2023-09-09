@@ -1,0 +1,13 @@
+// Problem Link: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+
+class Solution {
+public:
+    int maxProfit(vector<int>& A) {
+        int maxval=A[A.size()-1],maxdifference=0;
+        for(int i=A.size()-2;i>=0;i--){
+            maxval=maxval>A[i]?maxval:A[i];
+            maxdifference=maxdifference>maxval-A[i]?maxdifference:maxval-A[i];
+        }  
+        return maxdifference;      
+    }
+};
