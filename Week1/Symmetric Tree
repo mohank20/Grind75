@@ -1,0 +1,10 @@
+class Solution {
+public:
+    bool isu(TreeNode *x, TreeNode *y){
+        if(x==NULL || y==NULL) return !((y==NULL)^(x==NULL));
+        return isu(x->left,y->right)&&isu(x->right,y->left)&&(x->val==y->val);
+    }
+    bool isSymmetric(TreeNode* root) {
+        return isu(root->left,root->right);                
+    }
+};
