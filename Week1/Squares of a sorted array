@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& A) {
+        int l=0,r=A.size()-1,i=A.size()-1; vector<int> ans(A.size());
+        while(l<=r){
+            if(A[l]*A[l]>A[r]*A[r]) ans[i--]=(A[l]*A[l++]);
+            else ans[i--]=(A[r]*A[r--]); //Can do from largest to smallest
+            //Not from smallest to largest since dont know if 0 can come
+        }
+        return ans;
+        // multiset <int> s;
+        // for(auto x : nums)
+        // s.insert(x*x);
+        // return vector<int>(s.begin(),s.end()); >>>O(nlogn)
+    }
+};
