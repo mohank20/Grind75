@@ -1,3 +1,5 @@
+//2*newmin-oldmin=val
+
 class MinStack {
 public:
     stack<long> s; long minele;
