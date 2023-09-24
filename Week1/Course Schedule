@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool canFinish(int n, vector<vector<int>>& A) {
+        vector<int> in(n,0); queue<int> q;
+        vector<int> adj[n];
+        for(auto x : A){
+            adj[x[1]].push_back(x[0]);
+            in[x[0]]++;
+        } int nodesvisited=0;
+        for(int i=0;i<in.size();i++) if(in[i]==0) q.push(i);
+        while(!q.empty()){
+            int x=q.front(); q.pop(); nodesvisited++;
+            for(auto x : adj[x]){
+                in[x]--; if(in[x]==0) q.push(x);
+            }
+        }
+        return nodesvisited==n;
+    }
+};
