@@ -1,0 +1,28 @@
+class Solution {   
+public:   
+    int orangesRotting(vector<vector<int>>& grid) {
+        queue<pair<pair<int,int>,int>> q; int oranges=0, minutes=0; 
+        for(int i=0;i<grid.size();i++)
+            for(int j=0;j<grid[0].size();j++){
+                if(grid[i][j]==2) {oranges++;q.push({{i,j},0});}
+                else if(grid[i][j]==1) oranges++;
+            }  int counter=0;
+        while(!q.empty()){
+            int len=q.size();
+            while(len--){
+                auto temp=q.front(); q.pop(); counter++;
+                int i=temp.first.first,j=temp.first.second; minutes=temp.second;
+                int arr[]={0,1,0,-1,0};
+                for(int x=0;x<4;x++){
+                    int ni=i+arr[x],nj=j+arr[x+1];
+                    if(ni>=0 && ni<grid.size() && nj>=0 && nj<grid[0].size() && grid[ni][nj]==1){
+                        grid[ni][nj]=2;
+                        q.push({{ni,nj},minutes+1});
+                    }
+                }
+            }
+            
+        }
+        return oranges==counter?minutes:-1;  
+    }
+};
