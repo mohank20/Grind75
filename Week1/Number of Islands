@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void dfs(vector<vector<char>>& grid, int i, int j, vector<vector<bool>> &visit){
+        if(visit[i][j] || grid[i][j]=='0') return;
+        visit[i][j]=true;
+        int arr[]={0,1,0,-1,0};
+        for(int x=0;x<4;x++){
+            int ni=i+arr[x],nj=j+arr[x+1];
+            if(ni<0 || ni>=grid.size() || nj<0 || nj>=grid[0].size()) continue;
+            if(!visit[ni][nj] && grid[ni][nj]=='1') dfs(grid,ni,nj,visit);
+        }
+        return;        
+    }
+    int numIslands(vector<vector<char>>& grid) {
+        int num=0; vector<vector<bool>> visit(grid.size(),vector<bool>(grid[0].size()));
+        for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[0].size();j++){
+                if(grid[i][j]=='1' && !visit[i][j]){
+                    num++; 
+                    dfs(grid,i,j,visit);
+                }
+            }
+        }   
+        return num; 
+    }
+};
