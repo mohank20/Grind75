@@ -1,0 +1,38 @@
+class MinStack {
+public:
+    stack<long> s; long minele;
+    MinStack() {
+        
+    }
+    
+    void push(int val) {
+        if(s.empty()){s.push(val);minele=val;}
+        else if(val>=minele) s.push(val);
+        else{ //val<minele
+            s.push((long)2*val-minele);
+            minele=val;
+        }
+    }
+    
+    void pop() {
+        if(s.top()<minele) minele=2*minele-s.top();
+        s.pop();
+    }
+    
+    int top() {
+        return (s.top() < minele) ? minele : s.top();
+    }
+    
+    int getMin() {
+        return minele;
+    }
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(val);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */
