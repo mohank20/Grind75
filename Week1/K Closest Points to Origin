@@ -1,0 +1,47 @@
+class Solution {
+public:
+    class Compare {
+    public:
+    bool operator()(vector<int> below, vector<int> above)
+    {
+        return below[0]*below[0]+below[1]*below[1]>above[0]*above[0]+above[1]*above[1];
+    }
+};
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        vector<vector<int>> ans;
+        priority_queue<vector<int>,vector<vector<int>>,Compare> pq;
+        for(auto x : points) pq.push(x);
+        for(int i=1;i<=k;i++){
+            ans.push_back(pq.top());
+            pq.pop();
+        }
+        return ans;
+    }
+};
+
+// Another Solution
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        //we will create a min heap contains {dis,{x,y}};
+        priority_queue< pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int,int>>> >pq;
+        vector<vector<int>>res;
+
+        int n = points.size();
+        for(int i = 0;i < n;i++){
+            int y = points[i][1];
+            int x = points[i][0];
+
+            int dis = y*y + x*x; //dis square
+            pq.push({dis,{x,y}});
+        }
+
+        while(k--){
+            auto x = pq.top();
+            pq.pop();
+
+            res.push_back({x.second.first,x.second.second});
+        }
+        return res;
+    }
+};
