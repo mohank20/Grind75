@@ -1,0 +1,9 @@
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        vector<int> actual(nums.size(),1); int left=nums[0],right=nums.back();
+        for(int i=1;i<nums.size();i++) {actual[i]=left; left*=nums[i];}
+        for(int i=nums.size()-2;i>=0;i--) {actual[i]*=right; right*=nums[i];}
+        return actual;
+    }
+};
