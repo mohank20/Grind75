@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int prod1=1,prod2=1,result=-INT_MAX;
+        for(auto x : nums){
+            int temp1=prod1*x;
+            int temp2=prod2*x;
+            prod1=max({x,temp1,temp2});
+            prod2=min({x,temp2,temp1});
+            result=max(prod1,result);
+        } 
+        return result;       
+    }
+};
