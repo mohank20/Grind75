@@ -1,0 +1,14 @@
+class Solution {
+public: int k=0,cur=0;
+    int helper(TreeNode *root){
+        if(!root) return -1;
+        int l=helper(root->left);
+        cur++; if(l!=-1) return l;
+        if(k==cur) return root->val;
+        else return helper(root->right);
+    }
+    int kthSmallest(TreeNode* root, int j) {
+        k=j;
+        return helper(root);        
+    }
+};
