@@ -1,0 +1,19 @@
+class Solution {
+public:
+    void helper(vector<int>& A,int target,int ind, vector<vector<int>>&ans, vector<int> &cur){
+        if(target==0) {ans.push_back(cur); return;}
+        if(ind==A.size()||target<A[ind]) return; //check if ind is bounded
+        helper(A,target,ind+1,ans,cur);
+        cur.push_back(A[ind]);
+        helper(A,target-A[ind],ind,ans,cur);
+        cur.pop_back();
+        return;
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
+        vector<int> cur;
+        sort(candidates.begin(),candidates.end());
+        helper(candidates,target,0,ans,cur);
+        return ans;        
+    }
+};
