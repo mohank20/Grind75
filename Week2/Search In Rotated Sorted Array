@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int binarysearch(vector<int> &v,int lo, int hi, int target){
+        int low = lo, high = hi;
+        while(low<=high){
+            int mid = low+(high-low)/2;
+            if(v[mid]==target) return mid;
+            else if(v[mid]<target) low = mid+1;
+            else high = mid - 1;
+        }
+        return -1;
+    }
+    int search(vector<int>& arr, int target) {
+        int n = arr.size();
+        int lo =0,hi=n-1,pivot = 0;
+    
+        while(lo<hi){
+            int mid = lo+(hi-lo)/2;
+            if(arr[mid]<arr[hi]) hi = mid;
+            else lo = mid+1;
+        }
+        pivot = lo;
+        //binary
+        if(pivot==0){
+            int ans = binarysearch(arr,0,n-1,target);
+            return ans;
+        }
+        else if( target>=arr[0]&& target<= arr[pivot-1]){
+            int ans = binarysearch(arr,0,pivot-1,target);
+            return ans;
+        }
+        else{
+            int ans = binarysearch(arr,pivot,n-1,target);
+            return ans;
+        }
+        
+        
+        return -1;
+    }
+};
