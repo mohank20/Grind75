@@ -1,0 +1,15 @@
+class Solution {
+public:
+    void helper(set<vector<int>> &s, vector<int>&nums, vector<int> &cur, int index){
+        if(index==nums.size()){s.insert(cur); return;}
+        helper(s,nums,cur,index+1);
+        cur.push_back(nums[index]);
+        helper(s,nums,cur,index+1);
+        cur.pop_back();
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        set<vector<int>> s; vector<int> cur;
+        helper(s,nums,cur,0);
+        return vector<vector<int>>(s.begin(),s.end());
+    }
+};
