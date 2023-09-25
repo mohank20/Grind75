@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        long long ans=1;
+        for(int i=n-2;i>=0;i--){
+            ans*=(m+n-2-i);
+            ans/=(n-1-i); 
+        }
+        return static_cast<int> (ans);      
+    }
+};
