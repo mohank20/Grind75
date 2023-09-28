@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool canPartition(vector<int>& A) {
+        int sum=0;
+        for(auto x : A) sum+=x;
+        if(sum%2==1) return false; int ans=sum/2;
+        vector<int> dp(ans+1,0);
+        dp[0]=1;
+        for(int i=0;i<A.size();i++){
+            for(int j=ans;j>=0;j--){
+                if(j==0) {dp[j]=1; continue;}
+                if(A[i]<=j) dp[j]=dp[j]||dp[j-A[i]];            
+            }
+        }
+        return dp[ans]==1;        
+    }
+};
