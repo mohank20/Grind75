@@ -1,0 +1,21 @@
+class Solution {
+public:
+    unordered_map<int,string> mp;
+    void helper(vector<string> &s, string &cur, string &digits, int i){
+        if(i==digits.size()){s.push_back(cur); return;}
+        for(auto x : mp[digits[i]-'0']){
+            cur.push_back(x);
+            helper(s,cur,digits,i+1);
+            cur.pop_back();
+        }
+        return;
+    }
+    vector<string> letterCombinations(string digits) {
+        if(digits.size()==0) return{};
+        mp[2]="abc"; mp[3]="def"; mp[4]="ghi"; mp[5]="jkl"; 
+        mp[6]="mno"; mp[7]="pqrs"; mp[8]="tuv"; mp[9]="wxyz"; 
+        vector<string> s; string cur;
+        helper(s,cur,digits,0);
+        return s;        
+    }
+};
