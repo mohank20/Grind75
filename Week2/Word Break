@@ -1,0 +1,14 @@
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        vector<bool> dp(s.size());
+        for(int i=0;i<s.size();i++){
+            for(auto x : wordDict){
+                if(x.size()-1>i) continue;
+                if(x.size()-1==i || dp[i-x.size()] ){
+                    if(s.substr(i-x.size()+1,x.size())==x) dp[i]=true;
+                }
+            }
+        }    return dp[s.size()-1]  ;  
+    }
+};
