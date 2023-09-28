@@ -1,0 +1,44 @@
+class DSU{
+    public:
+    vector<int>par,size;
+    DSU(int n) : par(n),size(n,1){
+        for(int i=0;i<n;i++){
+            par[i]=i;
+        }
+    }
+    int find(int a){
+        if(a==par[a]) return a;
+        else return par[a]=find(par[a]);
+    }
+    void unionab(int a, int b){
+        int pa=find(a),pb=find(b);
+        if(pa==pb) return;
+        else if(size[a]<size[b]) swap(pa,pb);
+        par[pb]=pa; size[pa]+=size[pb];                
+    }
+    
+};
+
+class Solution {
+public:
+    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+        vector<vector<string>> ans; unordered_map<int,vector<string>> comp; 
+        int n=accounts.size(); DSU dsu(n); unordered_map<string,int> grp;
+        for(int i=0;i<n;i++){
+            for(int j=1;j<accounts[i].size();j++){
+                string email=accounts[i][j];
+                if(grp.find(email)==grp.end()) grp[email]=i;
+                else dsu.unionab(i,grp[email]);
+            }
+        }
+        for(auto x : grp)
+            comp[dsu.find(x.second)].push_back(x.first);
+        for(auto x : comp){
+            vector<string> temp = {accounts[x.first][0]};
+            temp.insert(temp.end(),x.second.begin(),x.second.end());
+            sort(temp.begin()+1,temp.end());
+            ans.push_back(temp);
+        }
+        return ans;
+    }
+};
