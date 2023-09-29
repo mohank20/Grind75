@@ -1,0 +1,23 @@
+class Solution {
+public: int m,n; vector<int> arr = {0,1,0,-1,0};
+    bool dfs(vector<vector<char>>& board, string word, int i, int j,int index){
+        if(board[i][j]=='#') return false; 
+        if(index==word.size()-1){return true;}
+        char temp=board[i][j]; board[i][j]='#'; 
+        for(int x=0;x<4;x++){
+        int ni=i+arr[x],nj=j+arr[x+1];
+        if(ni>=0 && ni<m && nj>=0 && nj<n && board[ni][nj]==word[index+1]) 
+            if (dfs(board,word,ni,nj,index+1)) return true;
+        } 
+        board[i][j]=temp;
+        return false;
+    }
+    bool exist(vector<vector<char>>& board, string word) {
+        m=board.size();n=board[0].size();
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+                {if(board[i][j]==word[0] && dfs(board,word,i,j,0)) return true;
+                }  
+        return false;         
+    }
+};
