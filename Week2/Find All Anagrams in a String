@@ -1,0 +1,18 @@
+
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        int m=p.size(),n=s.size();
+        vector<int> small(26,0),large(26,0); vector<int> ans;
+        for(int i=0;i<m;i++){
+            small[s[i]-'a']++;
+            large[p[i]-'a']++;
+        } if (small==large) ans.push_back(0);
+        for(int i=m;i<n;i++){
+            small[s[i-m]-'a']--; small[s[i]-'a']++;
+            if(small==large) ans.push_back(i-m+1);
+        }
+        return ans;
+        
+    }
+};
