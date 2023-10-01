@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool dfs(vector<int> &order, vector<vector<int>> &adj, vector<bool> &visit, vector<bool>&inStack, int node){
+        if(inStack[node]) return true;
+        if(visit[node]) return false;
+        visit[node]=true;
+        inStack[node]=true;
+        for(auto x : adj[node]){
+            if(dfs(order,adj,visit,inStack,x)) return true;
+        }
+        order.push_back(node);
+        inStack[node]=false;
+        return false;
+    }
+    vector<int> findOrder(int n, vector<vector<int>>& A) {
+        vector<int> in(n,0),order; queue<int> q;
+        vector<vector<int>> adj(n); vector<bool> visit(n),inStack(n);
+        for(auto x : A){
+            adj[x[1]].push_back(x[0]);
+            in[x[0]]++;
+        } 
+        for(int i=0;i<n;i++){
+            if(dfs(order,adj,visit,inStack,i)) return {};
+        } reverse(order.begin(),order.end());
+        return order;
+    }
+};
