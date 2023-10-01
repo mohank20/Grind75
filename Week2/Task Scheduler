@@ -1,0 +1,11 @@
+https://medium.com/@swgarciab/task-scheduler-leetcode-problem-a74acadf0e22
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) {
+        unordered_map<char,int> mp; int count=0;
+        for(auto x : tasks) {mp[x]++; count=max(count,mp[x]);}
+        int time=(count-1)*(n+1);
+        for(auto x : mp) if((x.second)==count) time++;
+        return tasks.size()>time?tasks.size():time;
+    }
+};
