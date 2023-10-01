@@ -1,0 +1,10 @@
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if(!head || !head->next) return head; ListNode *a=head;
+ListNode *evenhead=head->next, *odd=head, *even=head->next; 
+while(even && even->next){odd->next=odd->next->next;even->next=even->next->next; odd=odd->next; even=even->next;} 
+    odd->next=evenhead;
+    return a;     
+    }
+};
