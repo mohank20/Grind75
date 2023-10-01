@@ -1,0 +1,20 @@
+class Solution {
+public:
+    string decodeString(string &s) {
+        int i=0; return decodeString(s,i);
+    }
+private:
+    string decodeString(string &s, int &i){
+        string res=""; 
+        while(i<s.size()){
+            if(isalpha(s[i])) res+=s[i++];
+            else if(s[i]==']') return res;
+            else if(isdigit(s[i])){ int rep=0;
+                while(isdigit(s[i])) rep=rep*10+s[i++]-'0'; i++;
+                string alpha=decodeString(s,i); i++;
+                while(rep--) res+=alpha;
+            }
+        }
+        return res;
+    }
+};
