@@ -1,0 +1,39 @@
+class Solution {
+public:
+    string decodeString(string s) {
+        string ans = "", res = "";
+        int j = 0;
+
+        for (int i = 0; i < s.size(); i++) {
+            if (isdigit(s[i])) {
+                j = 10 * j + s[i] - '0'; // Build the repeat count
+            } else if (s[i] == '[') {
+                // Store the current result string in a stack
+                stack_res.push(res);
+                // Store the current repeat count in a stack
+                stack_count.push(j);
+                res = "";
+                j = 0;
+            } else if (s[i] == ']') {
+                // Get the previous result and repeat count from the stacks
+                string prev_res = stack_res.top();
+                stack_res.pop();
+                int repeat_count = stack_count.top();
+                stack_count.pop();
+                // Append the repeated substring to the previous result
+                for (int k = 0; k < repeat_count; k++) {
+                    prev_res += res;
+                }
+                res = prev_res;
+            } else {
+                res += s[i]; // Append non-digit characters to the current result
+            }
+        }
+
+        return res;
+    }
+
+private:
+    stack<string> stack_res;
+    stack<int> stack_count;
+};
