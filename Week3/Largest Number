@@ -1,0 +1,19 @@
+class Solution {
+public:
+    static bool c(string a, string b){
+        return a+b>b+a;
+    }
+    string largestNumber(vector<int>& nums) {
+        if(nums.size()==1) return to_string(nums[0]);
+        vector<string> s; 
+        for(auto x : nums) s.push_back(to_string(x));
+        sort(s.begin(),s.end(),c);
+        string ans="";
+        for(auto x : s)
+        ans+=x; int i;
+        for(i=0;i<ans.size();i++){
+            if(ans[i]!='0') break;
+        }
+        return i==ans.size()?"0":ans.substr(i,ans.size());
+    }
+};
