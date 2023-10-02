@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& a) {
+        stack<int> s; 
+        for(auto x : a){
+            if(x>0 || s.empty()) s.push(x);
+            else {while(!s.empty()&&s.top()>0&&s.top()<abs(x)) s.pop();
+            if(!s.empty() && s.top()==abs(x)) s.pop();
+            else if(s.empty() ||s.top()<0 ) s.push(x);}
+        }   vector<int> count(s.size());
+        for(int i=s.size()-1;i>=0;i--){
+            count[i]=s.top();s.pop();
+        }
+        return count;
+    }
+};
