@@ -1,0 +1,38 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public: unordered_map<TreeNode*,TreeNode*> parent; 
+    void parentise(TreeNode* &root){
+        if(root==NULL) return;
+        if(root->left){
+            parent[root->left]=root; parentise(root->left);
+        }
+        if(root->right){
+            parent[root->right]=root; parentise(root->right);
+        }
+        return;
+    }
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+        parentise(root); int i=0;
+        queue<TreeNode*> q; vector<int> ans; unordered_map<TreeNode*,bool> vis;
+        q.push(target); 
+        while(!q.empty()){
+            int len=q.size(); 
+            while(len--){
+                auto temp=q.front();q.pop(); vis[temp]=true;
+                if(i==k) ans.push_back(temp->val);
+                else{if(temp->left && !vis[temp->left]) q.push(temp->left);
+                if(temp->right && !vis[temp->right] ) q.push(temp->right);
+                if(parent.find(temp)!=parent.end() && !vis[parent[temp]]) q.push(parent[temp]);}
+            } i++;
+        } 
+        return ans;               
+    }
+};
