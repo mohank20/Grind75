@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int calculate(string s) {
+        int curnum=0,lastnum=0,res=0; char sign='+';
+        for(int i=0;i<s.size();i++){ 
+            char x = s[i];
+            if(isdigit(x)) curnum=(curnum*10) + (x-'0'); //brackets prevent int overflow
+            if((!isdigit(x) && !iswspace(x))||i==s.size()-1){
+                if(sign=='+'){res+=lastnum;lastnum=curnum;}
+                else if(sign=='-'){res+=lastnum;lastnum=-curnum;}
+                else if(sign=='*'){lastnum*=curnum;}
+                else lastnum/=curnum;
+                curnum=0; sign=x;
+            }
+        }
+        res+=lastnum;
+        return res;        
+    }
+};
