@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int numDecodings(string s) {
+        int n=s.size(); if(s.size()==0 || s[0]=='0') return 0;
+        int y=1,z;
+        for(int i=n-1;i>=0;i--){
+            int x=s[i]=='0'?0:y;
+            if(i<n-1 && (s[i]=='1' || s[i]=='2' && s[i+1]<='6')) x+=z;
+            z=y;y=x;
+        }
+        return y;
+    }
+};
