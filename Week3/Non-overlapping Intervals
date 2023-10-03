@@ -1,0 +1,16 @@
+class Solution {
+public:
+    static bool compare (vector<int> &a, vector<int> &b){
+        if (a[0]!=b[0]) return a[0]<b[0];
+        else return a[1]<b[1];
+    }
+    int eraseOverlapIntervals(vector<vector<int>>& A) {
+        sort(A.begin(),A.end(),compare); int nums=-1;
+        vector<int> prev = {A[0][0],A[0][1]};
+        for(auto x : A){
+        if(prev[1]>x[0]){if(prev[1]>x[1]) {prev=x;nums++;} else nums++;}
+        else prev=x;    }  
+         return nums;  
+    }
+   
+};
