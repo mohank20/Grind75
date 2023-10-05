@@ -1,0 +1,16 @@
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        unordered_map<char,int> mp;
+        for(auto x : t) mp[x]++;    
+        int counter=t.size(),head=0,begin=0,end=0,window=INT_MAX;
+        while(end<s.size()){
+            if(mp[s[end++]]-->0) counter--;
+            while(counter==0){
+                if(end-begin<window) window=end-(head=begin);
+                if(mp[s[begin++]]++==0) counter++;
+                }
+            }
+            return window==INT_MAX?"":s.substr(head,window);
+        }    
+};
