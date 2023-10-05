@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int trap(vector<int>& A) {
+        int left=0,right=A.size()-1,ml=0,mr=0,ans=0;
+        while(left<=right){
+            if(A[left]<A[right]){
+                if(A[left]>ml) ml=A[left];
+                else ans+=ml-A[left];
+                left++;
+            }
+            else{
+                if(A[right]>mr) mr=A[right];
+                else ans+=mr-A[right];
+                right--;
+            }
+        }  
+         return ans;      
+    }
+};
+//Guarantee on left-side if fill water then till at least maxleft can fill (since at maxleft, on moving right pointer in subsequent iterations, right side should, at some point in time, 
+become greater than maxleft then only left pointer can move to left++ smaller than maxleft. Without this guarantee pointer can't move). With this guarantee right side will be larger
+than maxleft, can either trust right or will get a larger maxleft after current left. In this case container starts filling from right side.
