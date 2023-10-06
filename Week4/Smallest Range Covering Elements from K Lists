@@ -1,0 +1,33 @@
+class Solution {
+public:
+    struct node{
+        int data,row,column;
+        node(int val, int i,int j) : data(val),row(i),column(j){}
+    };
+    class compare{
+        public:
+        bool operator()(node a,node b){
+            return a.data>b.data;
+        }
+    };
+    vector<int> smallestRange(vector<vector<int>>& nums) {
+        int n=nums.size();
+        priority_queue<node,vector<node>,compare> pq;
+        int mini=INT_MAX,maxi=INT_MIN,start,end,range=INT_MAX;
+        for(int i=0;i<n;i++){
+            maxi=max(maxi,nums[i][0]);
+            node temp(nums[i][0],i,0);
+            pq.push(temp); 
+        } start=mini;end=maxi; 
+        while(true){
+            node top=pq.top();pq.pop();
+            int i=top.row,j=top.column,mini=top.data;
+            if(maxi-mini<range){end=maxi;start=mini;range=maxi-mini;}
+            if(j==nums[i].size()-1) break;
+            node temp(nums[i][j+1],i,j+1);
+            pq.push(temp);
+            if(temp.data>maxi) maxi=temp.data;
+        }
+        return{start,end};
+    }
+};
