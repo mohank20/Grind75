@@ -1,0 +1,32 @@
+class Solution {
+public: int row[9][10],col[9][10],cube[3][3][10];
+    void solveSudoku(vector<vector<char>>& board) {
+        memset(row,0,sizeof(row));
+        memset(col,0,sizeof(col));
+        memset(cube,0,sizeof(cube));
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                if(board[i][j]!='.'){
+                    int c=board[i][j]-'0';
+                    row[i][c]=col[j][c]=cube[i/3][j/3][c]=1;
+                }
+            }
+        }
+        dfs(board,0,0);
+    }
+    bool dfs(vector<vector<char>> &board, int i,int j){
+        if(i==9) return true;
+        if(j==9) return dfs(board,i+1,0);
+        if(board[i][j]!='.') return dfs(board,i,j+1);
+        for(int x=1;x<10;x++){
+            if(row[i][x] || col[j][x] || cube[i/3][j/3][x]) continue;
+            row[i][x]=col[j][x]=cube[i/3][j/3][x]=1;
+            board[i][j]=x+'0'; 
+            if(dfs(board,i,j+1)) return true;
+            board[i][j]='.';
+            row[i][x]=col[j][x]=cube[i/3][j/3][x]=0;
+        }
+        return false;
+    }
+
+};
